@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Neon Admin Panel">
+    <meta name="author" content="">
+    <title>数据总览</title>
+    <link rel="stylesheet" href="/static/css/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="/static/css/entypo.css">
+    <link rel="stylesheet" href="/static/css/css.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/neon-core.css">
+    <link rel="stylesheet" href="/static/css/neon-theme.css">
+    <link rel="stylesheet" href="/static/css/neon-forms.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+    <script src="/static/js/html5shiv.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+    <script src="/static/js/parallax.min.js"></script>
+
+</head>
+<body class="page-body" data-url="http://neon.dev">
+
+<div class="page-container">
+    <div class="sidebar-menu">
+        <header class="logo-env">
+            <div class="logo">
+                <a href="/myApp/home/">
+                    <h3 style="color: #fff;font-weight: bold;margin-top: 5px;">BOSS直聘可视化分析</h3>
+                </a>
+            </div>
+        </header>
+
+        <div class="sidebar-user-info">
+
+            <div class="sui-normal">
+                <a href="#" class="user-link">
+                    <img style="width:95%" src="/media/{{ userInfo.avatar }}" alt="" class="img-circle">
+
+                    <span style="text-align:center;padding-top:209px">欢迎回来</span>
+                    <strong style="text-align:center;margin-top:5px">{{ username }}</strong>
+                </a>
+            </div>
+
+        </div>
+
+        <ul id="main-menu" class="">
+            <li>
+                <a href="/myApp/home">
+                    <i class="entypo-gauge"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="entypo-user"></i>
+                    <span>个人中心</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/myApp/selfInfo">
+                            <span>个人信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/changePassword">
+                            <span>修改密码</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="opened active">
+                <a href="#">
+                    <i class="entypo-layout"></i>
+                    <span>数据统计</span>
+                </a>
+                <ul>
+                    <li class="active">
+                        <a href="/myApp/tableData">
+                            <span>数据总览</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/historyTableData">
+                            <span>岗位收藏</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="entypo-chart-bar"></i>
+                    <span>可视化图表</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/myApp/salary">
+                            <i class="entypo-light-down"></i>
+                            <span>薪资情况</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/company">
+                            <i class="entypo-feather"></i>
+                            <span>企业情况</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/companyTags">
+                            <i class="entypo-lamp"></i>
+                            <span>福利词云</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/educational">
+                            <i class="entypo-graduation-cap"></i>
+                            <span>学历分布</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/companyStatus">
+                            <i class="entypo-network"></i>
+                            <span>企业融资</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="entypo-flight"></i>
+                    <span>模型预测</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/myApp/yuce">
+                            <i class="fa fa-superscript"></i>
+                            <span>模型预测：工时：薪资</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul>
+
+    </div>
+    <div class="main-content">
+
+        <div class="row">
+            <!-- Raw Links -->
+            <div style="display:flex;" class="col-md-12 hidden-xs">
+
+                <ul style="margin-left:auto" class="list-inline links-list pull-right">
+
+                    <li class="sep"></li>
+
+                    <li>
+                        <a href="/myApp/logOut">
+                            退出登录 <i class="entypo-logout right"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <hr style="margin-top:0">
+
+        <ol class="breadcrumb bc-3">
+            <li>
+                <a href="#"><i class="entypo-home"></i>数据统计</a>
+            </li>
+            <li class="active">
+                <strong>数据总览</strong>
+            </li>
+        </ol>
+        <h2>数据总览</h2>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                {% for i in c_page %}
+                    <div class="member-entry">
+
+                        <a href="{{ i.companyUrl }}" class="member-img">
+                            <img style="width:65%" src="{{ i.companyAvatar }}" class="img-rounded" alt="">
+                            <i class="entypo-forward"></i>
+                        </a>
+
+                        <div class="member-details">
+                            <h4>
+                                <a href="{{ i.companyUrl }}" style="font-weight: bold">{{ i.companyTitle }}</a>
+                            </h4>
+
+                            <!-- Details with Icons -->
+                            <div class="row info-list">
+
+                                <div class="col-sm-4">
+                                    <i class="entypo-briefcase"></i>
+                                    <a href="{{ i.detailUrl }}" class="text-info">{{ i.title }}</a>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <i class="entypo-star"></i>
+                                    <a href="#" class="text-danger" style="font-size:14px">
+                                        {% if i.pratice == 0 %}
+                                            {{ i.salary }}K/月
+                                            {% if i.salaryMonth != '0' %}
+                                                ·{{ i.salaryMonth }}薪
+                                            {% endif %}
+                                        {% else %}
+                                            {{ i.salary }}元/天
+                                        {% endif %}
+                                    </a>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <i class="entypo-menu"></i>
+                                    <a href="#">{{ i.workExperience }}|{{ i.educational }}|{{ i.type }}</a>
+                                </div>
+
+                                <div class="clear"></div>
+
+                                <div class="col-sm-4">
+                                    <i class="entypo-location"></i>
+                                    <a href="#">{{ i.address }}</a>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <i class="entypo-mail"></i>
+                                    <a href="#">{{ i.hrWork }} -> {{ i.hrName }}</a>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <i class="entypo-user"></i>
+                                    <a href="#">{{ i.companyStatus }}|{{ i.companyPeople }}人</a>
+                                </div>
+                                <div class="col-sm-4">
+                                    {% for i in i.workTag %}
+                                        {% if i != '' %}
+                                            <code>{{ i }}</code>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="col-sm-8">
+                                    {% if i.companyTags != '无' %}
+                                        {% for i in i.companyTags %}
+                                            {% if i != '' %}
+                                                <code style="margin-bottom: 3px;display:inline-block">{{ i }}</code>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row" style="display: flex;justify-content:center">
+            <ul class="pagination">
+                <style>
+                    .pagination li {
+                        margin-bottom: 5px;
+                        display: inline-block;
+                    }
+                </style>
+                {% if c_page.has_previous %}
+                    <li><a href="/myApp/tableData?page={{ c_page.previous_page_number }}"><i
+                            class="entypo-left-open-mini"></i></a></li>
+                {% endif %}
+
+                {% for i in page_range %}
+                    {% if i == c_page.number %}
+                        <li class="active"><a href="#">{{ i }}</a></li>
+                    {% else %}
+                        <li><a href="/myApp/tableData?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if c_page.has_next %}
+                    <li><a href="/myApp/tableData?page={{ c_page.next_page_number }}"><i
+                            class="entypo-right-open-mini"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <footer class="main">
+            Create By Lingtao <a target="_blank" href="https://www.zhipin.com/?ka=header-home">BOSS直聘</a>
+        </footer>
+    </div>
+</div>
+
+
+<!-- Bottom Scripts -->
+<script src="/static/js/main-gsap.js"></script>
+<script src="/static/js/jquery-ui-1.10.3.minimal.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/joinable.js"></script>
+<script src="/static/js/resizeable.js"></script>
+<script src="/static/js/fileinput.js"></script>
+<script src="/static/js/neon-api.js"></script>
+<script src="/static/js/neon-chat.js"></script>
+<script src="/static/js/neon-custom.js"></script>
+<script src="/static/js/neon-demo.js"></script>
+
+</body>
+</html>

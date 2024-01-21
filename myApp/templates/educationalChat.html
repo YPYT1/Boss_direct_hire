@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Neon Admin Panel">
+    <meta name="author" content="">
+    <title>学历分布</title>
+    <link rel="stylesheet" href="/static/css/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="/static/css/entypo.css">
+    <link rel="stylesheet" href="/static/css/css.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/neon-core.css">
+    <link rel="stylesheet" href="/static/css/neon-theme.css">
+    <link rel="stylesheet" href="/static/css/neon-forms.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+    <script src="/static/js/html5shiv.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+    <script src="/static/js/parallax.min.js"></script>
+</head>
+<body class="page-body" data-url="http://neon.dev">
+
+<div class="page-container">
+    <div class="sidebar-menu">
+        <header class="logo-env">
+            <div class="logo">
+                <a href="/myApp/home/">
+                    <h3 style="color: #fff;font-weight: bold;margin-top: 5px;">BOSS直聘可视化分析</h3>
+                </a>
+            </div>
+        </header>
+
+        <div class="sidebar-user-info">
+
+            <div class="sui-normal">
+                <a href="#" class="user-link">
+                    <img style="width:95%" src="/media/{{ userInfo.avatar }}" alt="" class="img-circle">
+
+                    <span style="text-align:center;padding-top:209px">欢迎回来,</span>
+                    <strong style="text-align:center;margin-top:5px">{{ userInfo.username }}</strong>
+                </a>
+            </div>
+
+        </div>
+
+        <ul id="main-menu" class="">
+            <li>
+                <a href="/myApp/home">
+                    <i class="entypo-gauge"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="entypo-user"></i>
+                    <span>个人中心</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/myApp/selfInfo">
+                            <span>个人信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/changePassword">
+                            <span>修改密码</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="entypo-layout"></i>
+                    <span>数据统计</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/myApp/tableData">
+                            <span>数据总览</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/historyTableData">
+                            <span>岗位收藏</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="opened active">
+                <a href="#">
+                    <i class="entypo-chart-bar"></i>
+                    <span>可视化图表</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/myApp/salary">
+                            <i class="entypo-light-down"></i>
+                            <span>薪资情况</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/company">
+                            <i class="entypo-feather"></i>
+                            <span>企业情况</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/companyTags">
+                            <i class="entypo-lamp"></i>
+                            <span>福利词云</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/myApp/educational">
+                            <i class="entypo-graduation-cap"></i>
+                            <span>学历分布</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/myApp/companyStatus">
+                            <i class="entypo-network"></i>
+                            <span>企业融资</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="entypo-flight"></i>
+                    <span>模型预测</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="/myApp/yuce">
+                            <i class="fa fa-superscript"></i>
+                            <span>模型预测：工时：薪资</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+    <div class="main-content">
+
+        <div class="row">
+            <!-- Raw Links -->
+            <div style="display:flex;" class="col-md-12 hidden-xs">
+
+                <ul style="margin-left:auto" class="list-inline links-list pull-right">
+
+                    <li class="sep"></li>
+
+                    <li>
+                        <a href="/myApp/logOut">
+                            退出登录 <i class="entypo-logout right"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <hr style="margin-top:0">
+
+        <ol class="breadcrumb bc-3">
+            <li>
+                <a href="#"><i class="entypo-home"></i>可视化图表</a>
+            </li>
+            <li class="active">
+                <strong>学历分布</strong>
+            </li>
+        </ol>
+        <h2>学历分布</h2>
+
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary" data-collapsed="0">
+
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            选择输入框
+                        </div>
+
+                        <div class="panel-options">
+                            <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i
+                                    class="entypo-cog"></i></a>
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                            <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <form action="/myApp/educational/" method="GET">
+                            <div class="col-md-4">
+                                <label>
+                                    <select name="educational" class="form-control">
+                                        {% if defaultEducation == '不限' %}
+                                            <option selected value="不限">
+                                                不限
+                                            </option>
+                                        {% else %}
+                                            <option value="不限">
+                                                不限
+                                            </option>
+                                        {% endif %}
+                                        {% for i in educations %}
+                                            {% if i == defaultEducation %}
+                                                <option selected value="{{ i }}">
+                                                    {% else %}
+                                                <option value="{{ i }}">
+                                            {% endif %}
+                                        {{ i }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-red">提交</button>
+                            </div>
+                        </form>
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">工作年限薪涨幅度情况</div>
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body text-center">
+                        {% if not hasEmpty %}
+                            <div id="main" style="width:100%;height:450px">
+                            </div>
+                        {% else %}
+                            <i class="entypo-cloud" style="font-size:200px"></i>
+                            <h1 class="text-center">
+                                数据飘走了~（暂无数据）
+                            </h1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">学历人数</div>
+                        <div class="panel-options">
+                            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                        </div>
+                    </div>
+                    <div class="panel-body text-center">
+                        <div id="mainTwo" style="width:100%;height:450px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="main">
+
+
+            Create By Lingtao <a target="_blank"
+                                                             href="https://www.zhipin.com/?ka=header-home">BOSS直聘</a>
+        </footer>
+    </div>
+
+</div>
+
+<!-- Bottom Scripts -->
+<script src="/static/js/main-gsap.js"></script>
+<script src="/static/js/jquery-ui-1.10.3.minimal.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/joinable.js"></script>
+<script src="/static/js/resizeable.js"></script>
+<script src="/static/js/fileinput.js"></script>
+<script src="/static/js/neon-api.js"></script>
+<script src="/static/js/neon-chat.js"></script>
+<script src="/static/js/neon-custom.js"></script>
+<script src="/static/js/neon-demo.js"></script>
+<script src="/static/js/echarts.js"></script>
+<script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    const colors = ['#5470C6', '#91CC75', '#EE6666'];
+    option = {
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        color: colors,
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            }
+        },
+        grid: {
+            right: '20%'
+        },
+        legend: {
+            data: ['薪资平均值', '人数']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisTick: {
+                    alignWithLabel: true
+                },
+                // prettier-ignore
+                data: {{ charDataRow | safe }}
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '薪资平均值',
+                position: 'right',
+                alignTicks: true,
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} $'
+                },
+                splitLine: {show: false}
+            },
+            {
+                type: 'value',
+                name: '人数',
+                alignTicks: true,
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: colors[1]
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} 人'
+                }
+            }
+        ],
+        series: [
+            {
+                name: '薪资平均值',
+                type: 'line',
+                data: {{ chrDataColumn1  }},
+                markPoint: {
+                    data: [
+                        {type: 'max', name: 'Max'},
+                        {type: 'min', name: 'Min'}
+                    ]
+                }
+            },
+            {
+                name: '人数',
+                type: 'line',
+                yAxisIndex: 1,
+                data: {{ chrDataColumn2  }},
+                markPoint: {
+                    data: [
+                        {type: 'max', name: 'Max'},
+                        {type: 'min', name: 'Min'}
+                    ]
+                }
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+</script>
+<script>
+    var chartDom = document.getElementById('mainTwo');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        color: ['#707f9b'],
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        title: {
+            text: '学历人数占比'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {},
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01]
+        },
+
+        yAxis: {
+            type: 'category',
+            data: {{ educationsDataRow | safe }}
+        },
+        series: [
+            {
+                name: '人数',
+                type: 'bar',
+                data: {{ educationsDataColumn }},
+                itemStyle: {
+                    normal: {
+                        //这里是重点
+                        color: function (params) {
+                            //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+                            var colorList = ['#3498db', '#9b59b6', '#ee4749', '#d55906', '#1abc9c', '#7f8c8d', '#3498db'];
+                            return colorList[params.dataIndex]
+                        }
+                    }
+                }
+            }
+        ]
+    };
+    option && myChart.setOption(option);
+</script>
+</body>
+</html>
+
+<!--yuyuyuyu-->

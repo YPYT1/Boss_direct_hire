@@ -1,0 +1,16 @@
+删除id
+ALTER TABLE jobinfo
+    DROP id;
+ALTER TABLE jobinfo
+    ADD id int NOT NULL PRIMARY KEY AUTO_INCREMENT FIRST;
+
+删除表数据
+情况
+DELETE FROM jobinfo;
+删除特定的
+WHERE +条件
+
+全删
+TRUNCATE TABLE jobinfo;
+
+
